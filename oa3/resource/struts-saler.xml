@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN" "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<!-- 部门管理 -->
+	<package name="saler" extends="default" namespace="/saler">
+		<!-- 列表 -->
+	 	<action name="SalerList" class="salerAction" method="getList">
+			<result name="success">/WEB-INF/pages/saler/salerList.jsp</result>
+		</action>
+		<!-- 添加 -->
+		<action name="AddSaler" class="salerAction" method="addSaler">
+			<result name="success">/WEB-INF/pages/saler/addSaler.jsp</result>
+		</action>
+		<!-- 保存 -->
+		<action name="SaveSaler" class="salerAction" method="saveSaler">
+			<result name="success" type="redirectAction">
+				<param name="actionName">SalerList</param>
+				<param name="namespace">/saler</param>
+			</result>
+			<result name="input">/WEB-INF/pages/saler/addSaler.jsp</result>
+		</action>
+		<!-- 修改 -->
+		<action name="EditSaler" class="salerAction" method="editSaler">
+			<result name="success">/WEB-INF/pages/saler/editSaler.jsp</result>
+		</action>
+		<!-- 更新 -->
+		<action name="UpdateSaler" class="salerAction" method="saveSaler">
+			<result name="success" type="redirectAction">
+				<param name="actionName">SalerList</param>
+				<param name="namespace">/saler</param>
+			</result>
+			<result name="input">/WEB-INF/pages/saler/editSaler.jsp</result>
+		</action>
+		<!-- 删除 -->
+		<action name="DeleteSaler" class="salerAction" method="deleteSaler">
+			<result name="success" type="redirectAction">
+				<param name="actionName">SalerList</param>
+				<param name="namespace">/saler</param>
+			</result>
+			<result name="input" type="chain">
+				<param name="actionName">SalerList</param>
+				<param name="namespace">/saler</param>
+			</result>
+		</action>
+		<!-- 查看 -->
+		<action name="ViewSaler" class="salerAction" method="editSaler">
+			<result name="success">/WEB-INF/pages/saler/viewSaler.jsp</result>
+		</action>
+	</package>
+</struts>

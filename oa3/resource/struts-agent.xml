@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN" "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<!-- 部门管理 -->
+	<package name="agent" extends="default" namespace="/agent">
+		<!-- 列表 -->
+	 	<action name="AgentList" class="agentAction" method="getList">
+			<result name="success">/WEB-INF/pages/agent/agentList.jsp</result>
+		</action>
+		<!-- 添加 -->
+		<action name="AddAgent" class="agentAction" method="addAgent">
+			<result name="success">/WEB-INF/pages/agent/addAgent.jsp</result>
+		</action>
+		<!-- 保存 -->
+		<action name="SaveAgent" class="agentAction" method="saveAgent">
+			<result name="success" type="chain">
+				<param name="actionName">AgentList</param>
+				<param name="namespace">/agent</param>
+			</result>
+			<result name="input">/WEB-INF/pages/agent/addAgent.jsp</result>
+		</action>
+		<!-- 修改 -->
+		<action name="EditAgent" class="agentAction" method="editAgent">
+			<result name="success">/WEB-INF/pages/agent/addAgent.jsp</result>
+		</action>
+		<!-- 更新 -->
+		<action name="UpdateAgent" class="agentAction" method="saveAgent">
+			<result name="success" type="chain">
+				<param name="actionName">AgentList</param>
+				<param name="namespace">/agent</param>
+			</result>
+			<result name="input">/WEB-INF/pages/agent/addAgent.jsp</result>
+		</action>
+		<!-- 删除 -->
+		<action name="DeleteAgent" class="agentAction" method="deleteAgent">
+			<result name="success" type="chain">
+				<param name="actionName">AgentList</param>
+				<param name="namespace">/agent</param>
+			</result>
+			<result name="input" type="chain">
+				<param name="actionName">AgentList</param>
+				<param name="namespace">/agent</param>
+			</result>
+		</action>
+		<!-- 查看 -->
+		<action name="ViewAgent" class="agentAction" method="viewAgent">
+			<result name="success">/WEB-INF/pages/agent/addAgent.jsp</result>
+		</action>
+		
+	</package>
+</struts>

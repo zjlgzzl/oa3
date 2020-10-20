@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN" "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<!-- 财务收入登记 -->
+	<package name="finance" extends="default" namespace="/finance">
+		<!-- 列表 -->
+	 	<action name="FinanceInList" class="financeInAction" method="getList">
+			<result name="success">/WEB-INF/pages/finance/financeList.jsp</result>
+			<param name="query.ctype">1</param>
+			<param name="listFlag">1</param>
+		</action>
+		<action name="FinanceInList2" class="financeInAction" method="getList">
+			<result name="success">/WEB-INF/pages/finance/financeList.jsp</result>
+			<param name="query.ctype">1</param>
+			<param name="listFlag">2</param>
+		</action>
+		<action name="FinanceOutList" class="financeOutAction" method="getList">
+			<result name="success">/WEB-INF/pages/finance/financeList.jsp</result>
+			<param name="query.ctype">2</param>
+			<param name="listFlag">1</param>
+		</action>
+		<action name="FinanceOutList2" class="financeOutAction" method="getList">
+			<result name="success">/WEB-INF/pages/finance/financeList.jsp</result>
+			<param name="query.ctype">2</param>
+			<param name="listFlag">2</param>
+		</action>
+		
+		<action name="FinanceOutReport" class="financeOutAction" method="getFinanceOutReport">
+			<result name="success">/WEB-INF/pages/finance/financeOutReport.jsp</result>
+		</action>
+		<action name="ExpOutReport" class="financeOutAction" method="expOutReport">
+			<result name="success" type="stream">                   
+				<param name="contentType">application/vnd.ms-excel</param>                   
+				<param name="inputName">excelStream</param>                 
+				<param  name="contentDisposition">attachment;filename="${fileName}.xls"</param>                
+				<param name="bufferSize">1024</param>
+			</result>
+		</action>
+		
+		<!-- 添加 -->
+		<action name="AddFinanceIn" class="financeInAction" method="addFinance">
+			<result name="success">/WEB-INF/pages/finance/addFinanceIn.jsp</result>
+		</action>
+		<action name="AddFinanceOut" class="financeOutAction" method="addFinance">
+			<result name="success">/WEB-INF/pages/finance/addFinanceOut.jsp</result>
+		</action>
+		<!-- 保存 -->
+		<action name="SaveFinanceIn" class="financeInAction" method="saveFinance">
+			<result name="success" type="chain">
+				<param name="actionName">FinanceInList</param>
+				<param name="namespace">/finance</param>
+			</result>
+			<result name="input">/WEB-INF/pages/finance/addFinanceIn.jsp</result>
+		</action>
+		<action name="SaveFinanceOut" class="financeOutAction" method="saveFinance">
+			<result name="success" type="chain">
+				<param name="actionName">FinanceOutList</param>
+				<param name="namespace">/finance</param>
+			</result>
+			<result name="input">/WEB-INF/pages/finance/addFinanceOut.jsp</result>
+		</action>
+		<!-- 修改 -->
+		<action name="EditFinanceIn" class="financeInAction" method="editFinance">
+			<result name="success">/WEB-INF/pages/finance/editFinanceIn.jsp</result>
+		</action>
+		<action name="EditFinanceOut" class="financeOutAction" method="editFinance">
+			<result name="success">/WEB-INF/pages/finance/editFinanceOut.jsp</result>
+		</action>
+		<!-- 更新 -->
+		<action name="UpdateFinanceIn" class="financeInAction" method="saveFinance">
+			<result name="success" type="chain">
+				<param name="actionName">FinanceInList</param>
+				<param name="namespace">/finance</param>
+			</result>
+			<result name="input">/WEB-INF/pages/finance/editFinanceIn.jsp</result>
+		</action>
+		<action name="UpdateFinanceOut" class="financeOutAction" method="saveFinance">
+			<result name="success" type="chain">
+				<param name="actionName">FinanceOutList</param>
+				<param name="namespace">/finance</param>
+			</result>
+			<result name="input">/WEB-INF/pages/finance/editFinanceOut.jsp</result>
+		</action>
+		<!-- 查看 -->
+		<action name="ViewFinanceIn" class="financeInAction" method="editFinance">
+			<result name="success">/WEB-INF/pages/finance/viewFinanceIn.jsp</result>
+			<param name="listFlag">${listFlag}</param>
+		</action>
+		<action name="ViewFinanceOut" class="financeOutAction" method="editFinance">
+			<result name="success">/WEB-INF/pages/finance/viewFinanceOut.jsp</result>
+			<param name="listFlag">${listFlag}</param>
+		</action>
+		<!-- 打印 -->
+		<action name="PrintFinanceIn" class="financeInAction" method="printFinance">
+			<result name="success">/WEB-INF/pages/finance/printFinanceIn.jsp</result>
+			<param name="listFlag">${listFlag}</param>
+		</action>
+		<action name="PrintFinanceOut" class="financeOutAction" method="printFinance">
+			<result name="success">/WEB-INF/pages/finance/printFinanceOut.jsp</result>
+			<param name="listFlag">${listFlag}</param>
+		</action>
+		<!-- 删除 -->
+		<action name="DeleteFinanceIn" class="financeInAction" method="deleteFinance">
+			<result name="success" type="chain">
+				<param name="actionName">FinanceInList</param>
+				<param name="namespace">/finance</param>
+			</result>
+			<result name="input" type="chain">
+				<param name="actionName">FinanceInList</param>
+				<param name="namespace">/finance</param>
+			</result>
+		</action>
+		<action name="DeleteFinanceOut" class="financeOutAction" method="deleteFinance">
+			<result name="success" type="chain">
+				<param name="actionName">FinanceOutList</param>
+				<param name="namespace">/finance</param>
+			</result>
+			<result name="input" type="chain">
+				<param name="actionName">FinanceOutList</param>
+				<param name="namespace">/finance</param>
+			</result>
+		</action>
+		<!-- 更新打印状态 -->
+		<action name="UpdateInState" class="financeInAction" method="updateState">
+			<result name="success" type="chain">
+				<param name="actionName">PrintFinanceIn</param>
+				<param name="namespace">/finance</param>
+			</result>
+		</action>
+		<action name="UpdateOutState" class="financeOutAction" method="updateState">
+			<result name="success" type="chain">
+				<param name="actionName">PrintFinanceOut</param>
+				<param name="namespace">/finance</param>
+			</result>
+		</action>
+		<!-- 检查提醒消息 -->
+		<action name="GetNotice" class="financeOutAction" method="getNotice" />
+		<!-- 自动更新备注 -->
+		<action name="UpdateRemarks" class="financeInAction" method="updateRemarks">
+		</action>
+		<action name="UpdateRemarks2" class="financeInAction" method="updateRemarks2">
+		</action>
+		
+		<!-- 归档 -->
+		<action name="FinanceInClose" class="financeInAction" method="updateStop">
+			<result name="success" type="chain">
+				<param name="actionName">FinanceInList</param>
+				<param name="namespace">/finance</param>
+				<param name="query.ctype">1</param>
+			</result>
+		</action>
+		<action name="FinanceOutClose" class="financeOutAction" method="updateStop">
+			<result name="success" type="chain">
+				<param name="actionName">FinanceOutList</param>
+				<param name="namespace">/finance</param>
+				<param name="query.ctype">2</param>
+			</result>
+		</action>
+		<!-- 解除归档 -->
+		<action name="FinanceInOpen" class="financeInAction" method="updateOpen">
+			<result name="success" type="chain">
+				<param name="actionName">FinanceInList</param>
+				<param name="namespace">/finance</param>
+				<param name="query.ctype">1</param>
+			</result>
+		</action>
+		<action name="FinanceOutOpen" class="financeOutAction" method="updateOpen">
+			<result name="success" type="chain">
+				<param name="actionName">FinanceOutList</param>
+				<param name="namespace">/finance</param>
+				<param name="query.ctype">2</param>
+			</result>
+		</action>
+		
+		<!-- 批量归档 -->
+		<action name="FinanceBatchInClose" class="financeInAction" method="financeBatchInClose">
+			<result name="success" type="chain">
+				<param name="actionName">FinanceInList</param>
+				<param name="namespace">/finance</param>
+				<param name="query.ctype">1</param>
+			</result>
+		</action>
+		<action name="FinanceBatchOutClose" class="financeOutAction" method="financeBatchOutClose">
+			<result name="success" type="chain">
+				<param name="actionName">FinanceOutList</param>
+				<param name="namespace">/finance</param>
+				<param name="query.ctype">2</param>
+			</result>
+		</action>
+		
+		<!-- 导出 -->
+		<action name="ExpFinanceIn" class="financeInAction" method="expFinanceIn">
+			<result name="success" type="stream">                   
+				<param name="contentType">application/vnd.ms-excel</param>                   
+				<param name="inputName">excelStream</param>                 
+				<param  name="contentDisposition">attachment;filename="${fileName}.xls"</param>                
+				<param name="bufferSize">1024</param>
+			</result>
+		</action>
+		<action name="ExpFinanceOut" class="financeOutAction" method="expFinanceOut">
+			<result name="success" type="stream">                   
+				<param name="contentType">application/vnd.ms-excel</param>                   
+				<param name="inputName">excelStream</param>                 
+				<param  name="contentDisposition">attachment;filename="${fileName}.xls"</param>                
+				<param name="bufferSize">1024</param>
+			</result>
+		</action>
+	</package>
+</struts>

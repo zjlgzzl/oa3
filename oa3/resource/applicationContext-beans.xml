@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"  
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+       xmlns:aop="http://www.springframework.org/schema/aop"  
+       xmlns:tx="http://www.springframework.org/schema/tx"  
+       xsi:schemaLocation="http://www.springframework.org/schema/beans   
+                           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd  
+                           http://www.springframework.org/schema/tx   
+                           http://www.springframework.org/schema/tx/spring-tx-3.0.xsd  
+                           http://www.springframework.org/schema/aop   
+                           http://www.springframework.org/schema/aop/spring-aop-3.0.xsd"
+       default-autowire="byName">
+		
+		<bean id="userDAO" class="com.common.auth.dao.UserDAOImpl" />
+		<bean id="roleDAO" class="com.common.auth.dao.RoleDAOImpl" />
+		<bean id="deptDAO" class="com.common.dept.dao.DeptDAOImpl" />
+		<bean id="empDAO" class="com.common.emp.dao.EmpDAOImpl" />
+		<bean id="accItemDAO" class="com.oa.base.dao.AccItemDAOImpl" />
+		<bean id="costItemDAO" class="com.oa.base.dao.CostItemDAOImpl" />
+		<bean id="cusDAO" class="com.oa.base.dao.CusDAOImpl" />
+		<bean id="serviceTypeDAO" class="com.oa.base.dao.ServiceTypeDAOImpl" />
+		<bean id="serviceItemDAO" class="com.oa.base.dao.ServiceItemDAOImpl" />
+		<bean id="businDAO" class="com.oa.busin.dao.BusinDAOImpl" />
+		<bean id="businLogDAO" class="com.oa.busin.dao.BusinLogDAOImpl" />
+		<bean id="containerDAO" class="com.oa.busin.dao.ContainerDAOImpl" />
+		<bean id="businServiceDAO" class="com.oa.busin.dao.BusinServiceDAOImpl" />
+		<bean id="costDAO" class="com.oa.busin.dao.CostDAOImpl" />
+		<bean id="cashDAO" class="com.oa.busin.dao.CashDAOImpl" />
+		<bean id="businTypeDAO" class="com.oa.base.dao.BusinTypeDAOImpl" />
+		<bean id="conModelDAO" class="com.oa.container.dao.ConModelDAOImpl" />
+		<bean id="conInfoDAO" class="com.oa.container.dao.ConInfoDAOImpl" />
+		<bean id="conRecordDAO" class="com.oa.container.dao.ConRecordDAOImpl" />
+		<bean id="bankDAO" class="com.oa.bank.dao.BankDAOImpl"/>
+		<bean id="financeDAO" class="com.oa.finance.dao.FinanceDAOImpl"/>
+		<bean id="financeTypeDAO" class="com.oa.finance.dao.FinanceTypeDAOImpl"/>
+		<bean id="reportDAO" class="com.oa.report.dao.ReportDAOImpl"/>
+		<bean id="rateDAO" class="com.oa.rate.dao.RateDAOImpl"/>
+		<bean id="cashRateDAO" class="com.oa.busin.dao.CashRateDAOImpl"/>
+		<bean id="hsCodeDAO" class="com.oa.hscode.dao.HsCodeDAOImpl"/>
+		<bean id="salerDAO" class="com.oa.base.dao.SalerDAOImpl" />
+		<bean id="agentDAO" class="com.oa.agent.dao.AgentDAOImpl" />
+		
+		<bean id="userService" class="com.common.auth.service.UserServiceImpl" />
+		<bean id="roleService" class="com.common.auth.service.RoleServiceImpl" />
+		<bean id="deptService" class="com.common.dept.service.DeptServiceImpl" />
+		<bean id="empService" class="com.common.emp.service.EmpServiceImpl" />
+		<bean id="accItemService" class="com.oa.base.service.AccItemServiceImpl" />
+		<bean id="costItemService" class="com.oa.base.service.CostItemServiceImpl" />
+		<bean id="cusService" class="com.oa.base.service.CusServiceImpl" />
+		<bean id="serviceTypeService" class="com.oa.base.service.ServiceTypeServiceImpl" />
+		<bean id="serviceItemService" class="com.oa.base.service.ServiceItemServiceImpl" />
+		<bean id="businService" class="com.oa.busin.service.BusinServiceImpl" />
+		<bean id="containerService" class="com.oa.busin.service.ContainerServiceImpl" />
+		<bean id="businServiceService" class="com.oa.busin.service.BusinServiceServiceImpl" />
+		<bean id="costService" class="com.oa.busin.service.CostServiceImpl" />
+		<bean id="cashService" class="com.oa.busin.service.CashServiceImpl" />
+		<bean id="businTypeService" class="com.oa.base.service.BusinTypeServiceImpl" />
+		<bean id="conModelService" class="com.oa.container.service.ConModelServiceImpl" />
+		<bean id="conInfoService" class="com.oa.container.service.ConInfoServiceImpl" />
+		<bean id="conRecordService" class="com.oa.container.service.ConRecordServiceImpl" />
+		<bean id="bankService" class="com.oa.bank.service.BankServiceImpl" />
+		<bean id="financeService" class="com.oa.finance.service.FinanceServiceImpl" />
+		<bean id="financeTypeService" class="com.oa.finance.service.FinanceTypeServiceImpl" />
+		<bean id="reportService" class="com.oa.report.service.ReportServiceImpl" />
+		<bean id="rateService" class="com.oa.rate.service.RateServiceImpl" />
+		<bean id="cashRateService" class="com.oa.busin.service.CashRateServiceImpl" />
+		<bean id="hsCodeService" class="com.oa.hscode.service.HsCodeServiceImpl"/>
+		<bean id="salerService" class="com.oa.base.service.SalerServiceImpl" />
+		<bean id="agentService" class="com.oa.agent.service.AgentServiceImpl" />
+		
+		<bean id="loginAction" class="com.common.auth.action.LoginAction" scope="prototype" />
+		<bean id="userAction" class="com.common.auth.action.UserAction" scope="prototype" />
+		<bean id="deptAction" class="com.common.dept.action.DeptAction" scope="prototype" />
+		<bean id="empAction" class="com.common.emp.action.EmpAction" scope="prototype" />
+		<bean id="costItemAction" class="com.oa.base.action.CostItemAction" scope="prototype" />
+		<bean id="accItemAction" class="com.oa.base.action.AccItemAction" scope="prototype" />
+		<bean id="cusAction" class="com.oa.base.action.CusAction" scope="prototype" />
+		<bean id="serviceTypeAction" class="com.oa.base.action.ServiceTypeAction" scope="prototype" />
+		<bean id="serviceItemAction" class="com.oa.base.action.ServiceItemAction" scope="prototype" />
+		<bean id="businAction" class="com.oa.busin.action.BusinAction" scope="prototype" />
+		<bean id="businTypeAction" class="com.oa.base.action.BusinTypeAction" scope="prototype" />
+		<bean id="conModelAction" class="com.oa.container.action.ConModelAction" scope="prototype" />
+		<bean id="conInfoAction" class="com.oa.container.action.ConInfoAction" scope="prototype" />
+		<bean id="conRecordAction" class="com.oa.container.action.ConRecordAction" scope="prototype" />
+		<bean id="bankAction" class="com.oa.bank.action.BankAction" scope="prototype" />
+		<bean id="financeInAction" class="com.oa.finance.action.FinanceInAction" scope="prototype" />
+		<bean id="financeOutAction" class="com.oa.finance.action.FinanceOutAction" scope="prototype" />
+		<bean id="financeTypeAction" class="com.oa.finance.action.FinanceTypeAction" scope="prototype" />
+		<bean id="reportAction" class="com.oa.report.action.ReportAction" scope="prototype" />
+		<bean id="rateAction" class="com.oa.rate.action.RateAction" scope="prototype" />
+		<bean id="hsCodeAction" class="com.oa.hscode.action.HsCodeAction" scope="prototype" />
+		<bean id="salerAction" class="com.oa.base.action.SalerAction" scope="prototype" />
+		<bean id="agentAction" class="com.oa.agent.action.AgentAction" scope="prototype" />
+		
+</beans>

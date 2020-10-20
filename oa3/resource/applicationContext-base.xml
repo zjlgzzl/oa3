@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"  
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+       xmlns:aop="http://www.springframework.org/schema/aop"  
+       xmlns:tx="http://www.springframework.org/schema/tx"  
+       xsi:schemaLocation="http://www.springframework.org/schema/beans   
+                           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd  
+                           http://www.springframework.org/schema/tx   
+                           http://www.springframework.org/schema/tx/spring-tx-3.0.xsd  
+                           http://www.springframework.org/schema/aop   
+                           http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+
+	<!-- 配置数据源 -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+		<property name="url" value="jdbc:mysql://127.0.0.1:3306/oa3"></property>
+		<property name="username" value="root"></property>
+		<property name="password" value="123456"></property>
+		<!-- 初始化连接:连接池启动时创建的初始化连接数量 -->
+		<property name="initialSize" value="5"></property>
+		<!-- 最大活动连接:连接池在同一时间能够分配的最大活动连接的数量, 如果设置为非正数则表示不限制 -->
+		<property name="maxActive" value="15"></property>
+		<!-- 最大空闲连接:连接池中容许保持空闲状态的最大连接数量,超过的空闲连接将被释放,如果设置为负数表示不限制 -->
+		<property name="maxIdle" value="10"></property>
+		<!-- 最小空闲连接:连接池中容许保持空闲状态的最小连接数量,低于这个数量将创建新的连接,如果设置为0则不创建 -->
+		<property name="minIdle" value="5"></property>
+		<!--removeAbandoned: 是否自动回收超时连接--> 
+		<property name="removeAbandoned" value="true"/> 
+		<!--removeAbandonedTimeout: 超时时间(以秒数为单位)--> 
+		<property name="removeAbandonedTimeout" value="180"/> 
+		<!--maxWait: 超时等待时间以毫秒为单位 6000毫秒/1000等于60秒--> 
+		<property name="maxWait" value="3000"/> 
+		<property name="validationQuery"> 
+			<value>SELECT 1</value> 
+		</property> 
+		<property name="testOnBorrow"> 
+			<value>true</value> 
+		</property>
+	</bean>
+	
+	<!-- 配置SessionFactory -->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">com.common.util.MySQLLocalDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">true</prop>
+			</props>
+		</property>
+		<property name="mappingResources">
+			<list>
+				<value>com/common/entity/TAccItem.hbm.xml</value>
+				<value>com/common/entity/TCustomer.hbm.xml</value>
+				<value>com/common/entity/TContainer.hbm.xml</value>
+				<value>com/common/entity/TCash.hbm.xml</value>
+				<value>com/common/entity/TCostItem.hbm.xml</value>
+				<value>com/common/entity/TBusin.hbm.xml</value>
+				<value>com/common/entity/TCost.hbm.xml</value>
+				<value>com/common/entity/TDept.hbm.xml</value>
+				<value>com/common/entity/TEmp.hbm.xml</value>
+				<value>com/common/entity/TFunction.hbm.xml</value>
+				<value>com/common/entity/TRole.hbm.xml</value>
+				<value>com/common/entity/TUser.hbm.xml</value>
+				<value>com/common/entity/VUserFun.hbm.xml</value>
+				<value>com/common/entity/VEmp.hbm.xml</value>
+				<value>com/common/entity/TBusinLog.hbm.xml</value>
+				<value>com/common/entity/TServiceType.hbm.xml</value>
+				<value>com/common/entity/TServiceItem.hbm.xml</value>
+				<value>com/common/entity/TService.hbm.xml</value>
+				<value>com/common/entity/VBusin.hbm.xml</value>
+				<value>com/common/entity/TBusinType.hbm.xml</value>
+				<value>com/common/entity/VLog.hbm.xml</value>
+				<value>com/common/entity/TContainerModel.hbm.xml</value>
+				<value>
+					com/common/entity/TContainerRecord.hbm.xml
+				</value>
+				<value>com/common/entity/TContainerInfo.hbm.xml</value>
+				<value>
+					com/common/entity/VContainerRecord.hbm.xml
+				</value>
+				<value>com/common/entity/VConview.hbm.xml</value>
+				<value>com/common/entity/VConcompute.hbm.xml</value>
+				<value>com/common/entity/TBank.hbm.xml</value>
+				<value>com/common/entity/TFinanceDetail.hbm.xml</value>
+				<value>com/common/entity/TFinance.hbm.xml</value>
+				<value>com/common/entity/VFinance.hbm.xml</value>
+				<value>
+					com/common/entity/VBusinreceivereport.hbm.xml
+				</value>
+				<value>
+					com/common/entity/VBusinprofitreport.hbm.xml
+				</value>
+				<value>
+					com/common/entity/VBankmoneyreport.hbm.xml
+				</value>
+				<value>com/common/entity/TFinancetype.hbm.xml</value>
+				<value>com/common/entity/TCashRate.hbm.xml</value>
+				<value>com/common/entity/TRate.hbm.xml</value>
+				<value>com/common/entity/THscode.hbm.xml</value>
+				<value>com/common/entity/VCostReport.hbm.xml</value>
+				<value>com/common/entity/TDelDn.hbm.xml</value>
+				<value>
+					com/common/entity/VEmpprofitreport.hbm.xml
+				</value>
+				<value>
+					com/common/entity/VBusinprofitcusreport.hbm.xml
+				</value>
+				<value>com/common/entity/TProfitCus.hbm.xml</value>
+				<value>com/common/entity/TSaler.hbm.xml</value>
+				<value>com/common/entity/VBusincusreport.hbm.xml</value>
+				<value>
+					com/common/entity/TFinancetypeUser.hbm.xml
+				</value>
+				<value>com/common/entity/VOutReport.hbm.xml</value>
+				<value>com/common/entity/TFinanceGroup.hbm.xml</value>
+				<value>
+					com/common/entity/TFinanceGroupItem.hbm.xml
+				</value>
+				<value>com/common/entity/TCostUser.hbm.xml</value>
+				<value>com/common/entity/VBusinInvUser.hbm.xml</value>
+				<value>com/common/entity/VBusinSumReport.hbm.xml</value>
+				<value>com/common/entity/TCostGroup.hbm.xml</value>
+				<value>com/common/entity/TCostGroupItem.hbm.xml</value>
+				<value>com/common/entity/VCostGroupSum.hbm.xml</value>
+				<value>com/common/entity/VCostReport2.hbm.xml</value>
+				<value>com/common/entity/TCostGroupInfo.hbm.xml</value>
+				<value>com/common/entity/TJiezhuan.hbm.xml</value>
+				<value>com/common/entity/TBiaoji.hbm.xml</value>
+				<value>com/common/entity/VBusinAsk.hbm.xml</value>
+				<value>com/common/entity/TAgent.hbm.xml</value>
+				<value>com/common/entity/TBusinHis.hbm.xml</value>
+				</list>
+		</property>
+	</bean>
+	
+	<!-- 配置事务管理器 -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" 
+			ref="sessionFactory">
+		</property>
+	</bean>
+	
+	<!-- 配置哪些类的哪些方法使用事务 -->
+	<aop:config>
+		<aop:pointcut id="allServiceMethod" expression="execution(* com.*.*.service.*.*(..))"/>
+		<aop:advisor pointcut-ref="allServiceMethod" advice-ref="txAdvice"/>
+	</aop:config>
+	
+	<!-- 事务的传播特性 -->	
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="save*" propagation="REQUIRED"/>
+			<tx:method name="update*" propagation="REQUIRED"/>
+			<tx:method name="delete*" propagation="REQUIRED"/>
+			<tx:method name="*" propagation="REQUIRED" read-only="true"/>
+		</tx:attributes>
+	</tx:advice>
+	 
+</beans>

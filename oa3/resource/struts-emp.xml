@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN" "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<!-- 员工管理 -->
+	<package name="emp" extends="default" namespace="/emp">
+		<!-- 列表 -->
+	 	<action name="EmpList" class="empAction" method="getList">
+			<result name="success">/WEB-INF/pages/emp/empList.jsp</result>
+		</action>
+		<!-- 添加 -->
+		<action name="AddEmp" class="empAction" method="addEmp">
+			<result name="success">/WEB-INF/pages/emp/addEmp.jsp</result>
+		</action>
+		<!-- 保存 -->
+		<action name="SaveEmp" class="empAction" method="saveEmp">
+			<result name="success" type="chain">
+				<param name="actionName">EmpList</param>
+				<param name="namespace">/emp</param>
+			</result>
+			<result name="input">/WEB-INF/pages/emp/addEmp.jsp</result>
+		</action>
+		<!-- 修改 -->
+		<action name="EditEmp" class="empAction" method="editEmp">
+			<result name="success">/WEB-INF/pages/emp/editEmp.jsp</result>
+		</action>
+		<!-- 更新 -->
+		<action name="UpdateEmp" class="empAction" method="saveEmp">
+			<result name="success" type="chain">
+				<param name="actionName">EmpList</param>
+				<param name="namespace">/emp</param>
+			</result>
+			<result name="input">/WEB-INF/pages/emp/editEmp.jsp</result>
+		</action>
+		<!-- 删除 -->
+		<action name="DeleteEmp" class="empAction" method="deleteEmp">
+			<result name="success" type="chain">
+				<param name="actionName">EmpList</param>
+				<param name="namespace">/emp</param>
+			</result>
+			<result name="input" type="chain">
+				<param name="actionName">EmpList</param>
+				<param name="namespace">/emp</param>
+			</result>
+		</action>
+		<!-- 禁用 -->
+		<action name="InvalidEmp" class="empAction" method="invalidEmp">
+			<result name="success" type="chain">
+				<param name="actionName">EmpList</param>
+				<param name="namespace">/emp</param>
+			</result>
+			<result name="input" type="chain">
+				<param name="actionName">EmpList</param>
+				<param name="namespace">/emp</param>
+			</result>
+		</action>
+		<!-- 查看 -->
+		<action name="ViewEmp" class="empAction" method="editEmp">
+			<result name="success">/WEB-INF/pages/emp/viewEmp.jsp</result>
+		</action>
+		<!-- 重置密码 -->
+		<action name="ResetPwd" class="empAction" method="resetPwd">
+			<result name="success" type="chain">
+				<param name="actionName">EmpList</param>
+				<param name="namespace">/emp</param>
+			</result>
+			<result name="input" type="chain">
+				<param name="actionName">EmpList</param>
+				<param name="namespace">/emp</param>
+			</result>
+		</action>
+	</package>
+</struts>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN" "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<!-- 部门管理 -->
+	<package name="dept" extends="default" namespace="/dept">
+		<!-- 列表 -->
+	 	<action name="DeptList" class="deptAction" method="getList">
+			<result name="success">/WEB-INF/pages/dept/deptList.jsp</result>
+		</action>
+		<!-- 添加 -->
+		<action name="AddDept" class="deptAction" method="addDept">
+			<result name="success">/WEB-INF/pages/dept/addDept.jsp</result>
+		</action>
+		<!-- 保存 -->
+		<action name="SaveDept" class="deptAction" method="saveDept">
+			<result name="success" type="chain">
+				<param name="actionName">DeptList</param>
+				<param name="namespace">/dept</param>
+			</result>
+			<result name="input">/WEB-INF/pages/dept/addDept.jsp</result>
+		</action>
+		<!-- 修改 -->
+		<action name="EditDept" class="deptAction" method="editDept">
+			<result name="success">/WEB-INF/pages/dept/editDept.jsp</result>
+		</action>
+		<!-- 更新 -->
+		<action name="UpdateDept" class="deptAction" method="saveDept">
+			<result name="success" type="chain">
+				<param name="actionName">DeptList</param>
+				<param name="namespace">/dept</param>
+			</result>
+			<result name="input">/WEB-INF/pages/dept/editDept.jsp</result>
+		</action>
+		<!-- 删除 -->
+		<action name="DeleteDept" class="deptAction" method="deleteDept">
+			<result name="success" type="chain">
+				<param name="actionName">DeptList</param>
+				<param name="namespace">/dept</param>
+			</result>
+			<result name="input" type="chain">
+				<param name="actionName">DeptList</param>
+				<param name="namespace">/dept</param>
+			</result>
+		</action>
+		<!-- 禁用 -->
+		<action name="InvalidDept" class="deptAction" method="invalidDept">
+			<result name="success" type="chain">
+				<param name="actionName">DeptList</param>
+				<param name="namespace">/dept</param>
+			</result>
+			<result name="input" type="chain">
+				<param name="actionName">DeptList</param>
+				<param name="namespace">/dept</param>
+			</result>
+		</action>
+		<!-- 查看 -->
+		<action name="ViewDept" class="deptAction" method="editDept">
+			<result name="success">/WEB-INF/pages/dept/viewDept.jsp</result>
+		</action>
+	</package>
+</struts>
