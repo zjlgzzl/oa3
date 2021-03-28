@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN" "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<!-- 统计报表 -->
+	<package name="report" extends="default" namespace="/report">
+	
+	 	<action name="BusinReceiveDReport" class="reportAction" method="getBusinReceiveDReport">
+			<result name="success">/WEB-INF/pages/report/businReceivedReport.jsp</result>
+		</action>
+	 	<action name="BusinReceiveDReport2" class="reportAction" method="getBusinReceiveDReport2">
+			<result name="success">/WEB-INF/pages/report/businReceivedReport2.jsp</result>
+		</action>
+	 	
+	 	<action name="BusinProfitReport" class="reportAction" method="getBusinProfitReport">
+			<result name="success">/WEB-INF/pages/report/businProfitReport.jsp</result>
+		</action>
+		<action name="BusinProfitReport2" class="reportAction" method="getBusinProfitReport2">
+			<result name="success">/WEB-INF/pages/report/businProfitReport2.jsp</result>
+		</action>
+		<action name="ExportReport" class="reportAction" method="exportReport">
+		</action>
+		<action name="BankMoneyReport" class="reportAction" method="getBankMoneyReport">
+			<result name="success">/WEB-INF/pages/report/bankMoneyReport.jsp</result>
+		</action>
+		<action name="BankAccountReport" class="reportAction" method="getBankAccountReport">
+			<result name="success">/WEB-INF/pages/report/bankAccountReport.jsp</result>
+		</action>
+		<action name="UpdateRecieveMoney" class="reportAction" method="updateRecieveMoney"></action>
+		
+		<action name="ScheduleArchive" class="reportAction" method="scheduleArchive">
+			<result name="success" type="chain">
+				<param name="actionName">BusinReceiveDReport</param>
+				<param name="namespace">/report</param>
+			</result>
+		</action>
+		<!-- 批量归档 -->
+		<action name="ScheduleArchive2" class="reportAction" method="scheduleArchive2">
+			<result name="success" type="chain">
+				<param name="actionName">BusinReceiveDReport</param>
+				<param name="namespace">/report</param>
+			</result>
+		</action>
+		<action name="CancelScheduleArchive" class="reportAction" method="cancelScheduleArchive">
+			<result name="success" type="chain">
+				<param name="actionName">BusinReceiveDReport2</param>
+				<param name="namespace">/report</param>
+			</result>
+		</action>
+		
+		<action name="RateArchive" class="reportAction" method="rateArchive">
+			<result name="success" type="chain">
+				<param name="actionName">BusinProfitReport</param>
+				<param name="namespace">/report</param>
+			</result>
+		</action>
+		<action name="RateBatchArchive" class="reportAction" method="rateBatchArchive">
+			<result name="success" type="chain">
+				<param name="actionName">BusinProfitReport</param>
+				<param name="namespace">/report</param>
+			</result>
+		</action>
+		<action name="CancelRateArchive" class="reportAction" method="cancelRateArchive">
+			<result name="success" type="chain">
+				<param name="actionName">BusinProfitReport2</param>
+				<param name="namespace">/report</param>
+			</result>
+		</action>
+		
+		<action name="CostReport" class="reportAction" method="costReport">
+			<result name="success">/WEB-INF/pages/report/costReport.jsp</result>
+		</action>
+		<action name="CostReport2" class="reportAction" method="costReport2">
+			<result name="success">/WEB-INF/pages/report/costReport2.jsp</result>
+		</action>
+		
+		<action name="ExpCostReport" class="reportAction" method="expCostReport">
+			<result name="success" type="stream">                   
+				<param name="contentType">application/vnd.ms-excel</param>                   
+				<param name="inputName">excelStream</param>                 
+				<param  name="contentDisposition">attachment;filename="${fileName}.xls"</param>                
+				<param name="bufferSize">1024</param>
+			</result>
+		</action>
+		<action name="ExpCostReport2" class="reportAction" method="expCostReport2">
+			<result name="success" type="stream">                   
+				<param name="contentType">application/vnd.ms-excel</param>                   
+				<param name="inputName">excelStream</param>                 
+				<param  name="contentDisposition">attachment;filename="${fileName}.xls"</param>                
+				<param name="bufferSize">1024</param>
+			</result>
+		</action>
+		
+		<action name="UpdateRecieveRemarks" class="reportAction" method="updateRecieveRemarks"></action>
+		<action name="UpdateRecieveRemarks2" class="reportAction" method="updateRecieveRemarks2"></action>
+		<action name="UpdateCostRemarks" class="reportAction" method="updateCostRemarks"></action>
+		<action name="UpdateCostMoney" class="reportAction" method="updateCostMoney"></action>
+		<action name="UpdateCusRemarks" class="reportAction" method="updateCusRemarks"></action>
+		<action name="UpdateCusRemarks2" class="reportAction" method="updateCusRemarks2"></action>
+		<action name="UpdateCusPayableDatetime" class="reportAction" method="updateCusPayableDatetime"></action>
+		<action name="UpdateCusSale" class="reportAction" method="updateCusSale"></action>
+		
+		<action name="ExpRecieveReport" class="reportAction" method="expRecieveReport">
+			<result name="success" type="stream">                   
+				<param name="contentType">application/vnd.ms-excel</param>                   
+				<param name="inputName">excelStream</param>                 
+				<param  name="contentDisposition">attachment;filename="${fileName}.xls"</param>                
+				<param name="bufferSize">1024</param>
+			</result>
+		</action>
+		<action name="ExpRecieveReport2" class="reportAction" method="expRecieveReport2">
+			<result name="success" type="stream">                   
+				<param name="contentType">application/vnd.ms-excel</param>                   
+				<param name="inputName">excelStream</param>                 
+				<param  name="contentDisposition">attachment;filename="${fileName}.xls"</param>                
+				<param name="bufferSize">1024</param>
+			</result>
+		</action>
+		<action name="ExpProfitReport" class="reportAction" method="expProfitReport">
+			<result name="success" type="stream">                   
+				<param name="contentType">application/vnd.ms-excel</param>                   
+				<param name="inputName">excelStream</param>                 
+				<param  name="contentDisposition">attachment;filename="${fileName}.xls"</param>                
+				<param name="bufferSize">1024</param>
+			</result>
+		</action>
+		
+		<action name="ExpBusinReceiveCusReport" class="reportAction" method="expBusinReceiveCusReport">
+			<result name="success" type="stream">                   
+				<param name="contentType">application/vnd.ms-excel</param>                   
+				<param name="inputName">excelStream</param>                 
+				<param  name="contentDisposition">attachment;filename="${fileName}.xls"</param>                
+				<param name="bufferSize">1024</param>
+			</result>
+		</action>
+		
+		<action name="EmpProfitReport" class="reportAction" method="getEmpProfitReport">
+			<result name="success">/WEB-INF/pages/report/empProfitReport.jsp</result>
+		</action>
+		<action name="ExpEmpProfitReport" class="reportAction" method="expEmpProfitReport">
+			<result name="success" type="stream">                   
+				<param name="contentType">application/vnd.ms-excel</param>                   
+				<param name="inputName">excelStream</param>                 
+				<param  name="contentDisposition">attachment;filename="${fileName}.xls"</param>                
+				<param name="bufferSize">1024</param>
+			</result>
+		</action>
+		
+		
+		<action name="BusinReceiveCusReport" class="reportAction" method="getBusinProfitCusList">
+			<result name="success">/WEB-INF/pages/report/businProfitCusReport.jsp</result>
+			<param name="firstQuery">1</param>
+		</action>
+		
+		<action name="UpdateCusFlag" class="reportAction" method="updateCusFlag">
+			<result name="success" type="chain">
+				<param name="actionName">BusinReceiveCusReport</param>
+				<param name="namespace">/report</param>
+			</result>
+		</action>
+		
+		<action name="PayComplete" class="reportAction" method="payComplete">
+			<result name="success" type="chain">
+				<param name="actionName">BusinReceiveDReport2</param>
+				<param name="namespace">/report</param>
+			</result>
+		</action>
+		<action name="PayComplete2" class="reportAction" method="payComplete2">
+			<result name="success" type="chain">
+				<param name="actionName">BusinReceiveDReport2</param>
+				<param name="namespace">/report</param>
+			</result>
+		</action>
+		
+		<action name="CancelNotice" class="reportAction" method="cancelNotice">
+			<result name="success" type="chain">
+				<param name="actionName">BusinReceiveDReport2</param>
+				<param name="namespace">/report</param>
+			</result>
+			<result name="input" type="chain">
+				<param name="actionName">BusinReceiveDReport2</param>
+				<param name="namespace">/report</param>
+			</result>
+		</action>
+		
+		<action name="JiezhuanReport" class="reportAction" method="jiezhuanReport">
+			<result name="success">/WEB-INF/pages/report/jiezhuanReport.jsp</result>
+		</action>
+		
+		<action name="CancelJiezhuanNotice" class="reportAction" method="cancelJiezhuanNotice">
+			<result name="success" type="chain">
+				<param name="actionName">JiezhuanReport</param>
+				<param name="namespace">/report</param>
+			</result>
+			<result name="input" type="chain">
+				<param name="actionName">JiezhuanReport</param>
+				<param name="namespace">/report</param>
+			</result>
+		</action>
+		<action name="CostCashoutReport" class="reportAction" method="getCostCashoutReport">
+			<result name="success">/WEB-INF/pages/report/costCashoutReport.jsp</result>
+		</action>
+	</package>
+</struts>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN" "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<!-- 部门管理 -->
+	<package name="type" extends="default" namespace="/type">
+		<!-- 列表 -->
+	 	<action name="TypeList" class="typeAction" method="getList">
+			<result name="success">/WEB-INF/pages/type/typeList.jsp</result>
+		</action>
+		<!-- 添加 -->
+		<action name="AddType" class="typeAction" method="addType">
+			<result name="success">/WEB-INF/pages/type/addType.jsp</result>
+		</action>
+		<!-- 保存 -->
+		<action name="SaveType" class="typeAction" method="saveType">
+			<result name="success" type="chain">
+				<param name="actionName">TypeList</param>
+				<param name="namespace">/type</param>
+			</result>
+			<result name="input">/WEB-INF/pages/type/addType.jsp</result>
+		</action>
+		<!-- 修改 -->
+		<action name="EditType" class="typeAction" method="editType">
+			<result name="success">/WEB-INF/pages/type/addType.jsp</result>
+		</action>
+		<!-- 更新 -->
+		<action name="UpdateType" class="typeAction" method="saveType">
+			<result name="success" type="chain">
+				<param name="actionName">TypeList</param>
+				<param name="namespace">/type</param>
+			</result>
+			<result name="input">/WEB-INF/pages/type/addType.jsp</result>
+		</action>
+		<!-- 删除 -->
+		<action name="DeleteType" class="typeAction" method="deleteType">
+			<result name="success" type="chain">
+				<param name="actionName">TypeList</param>
+				<param name="namespace">/type</param>
+			</result>
+			<result name="input" type="chain">
+				<param name="actionName">TypeList</param>
+				<param name="namespace">/type</param>
+			</result>
+		</action>
+		<!-- 查看 -->
+		<action name="ViewType" class="typeAction" method="viewType">
+			<result name="success">/WEB-INF/pages/type/addType.jsp</result>
+		</action>
+		
+	</package>
+</struts>

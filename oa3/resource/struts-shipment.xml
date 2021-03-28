@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN" "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<!-- 部门管理 -->
+	<package name="shipment" extends="default" namespace="/shipment">
+		<!-- 列表 -->
+	 	<action name="ShipmentList" class="shipmentAction" method="getList">
+			<result name="success">/WEB-INF/pages/shipment/shipmentList.jsp</result>
+		</action>
+		<!-- 添加 -->
+		<action name="AddShipment" class="shipmentAction" method="addShipment">
+			<result name="success">/WEB-INF/pages/shipment/addShipment.jsp</result>
+		</action>
+		<!-- 保存 -->
+		<action name="SaveShipment" class="shipmentAction" method="saveShipment">
+			<result name="success" type="chain">
+				<param name="actionName">ShipmentList</param>
+				<param name="namespace">/shipment</param>
+			</result>
+			<result name="input">/WEB-INF/pages/shipment/addShipment.jsp</result>
+		</action>
+		<!-- 修改 -->
+		<action name="EditShipment" class="shipmentAction" method="editShipment">
+			<result name="success">/WEB-INF/pages/shipment/addShipment.jsp</result>
+		</action>
+		<!-- 更新 -->
+		<action name="UpdateShipment" class="shipmentAction" method="saveShipment">
+			<result name="success" type="chain">
+				<param name="actionName">ShipmentList</param>
+				<param name="namespace">/shipment</param>
+			</result>
+			<result name="input">/WEB-INF/pages/shipment/addShipment.jsp</result>
+		</action>
+		<!-- 删除 -->
+		<action name="DeleteShipment" class="shipmentAction" method="deleteShipment">
+			<result name="success" type="chain">
+				<param name="actionName">ShipmentList</param>
+				<param name="namespace">/shipment</param>
+			</result>
+			<result name="input" type="chain">
+				<param name="actionName">ShipmentList</param>
+				<param name="namespace">/shipment</param>
+			</result>
+		</action>
+		<!-- 查看 -->
+		<action name="ViewShipment" class="shipmentAction" method="viewShipment">
+			<result name="success">/WEB-INF/pages/shipment/addShipment.jsp</result>
+		</action>
+		
+	</package>
+</struts>

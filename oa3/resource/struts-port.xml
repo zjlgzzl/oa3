@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN" "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<!-- 部门管理 -->
+	<package name="port" extends="default" namespace="/port">
+		<!-- 列表 -->
+	 	<action name="PortList" class="portAction" method="getList">
+			<result name="success">/WEB-INF/pages/port/portList.jsp</result>
+		</action>
+		<!-- 添加 -->
+		<action name="AddPort" class="portAction" method="addPort">
+			<result name="success">/WEB-INF/pages/port/addPort.jsp</result>
+		</action>
+		<!-- 保存 -->
+		<action name="SavePort" class="portAction" method="savePort">
+			<result name="success" type="chain">
+				<param name="actionName">PortList</param>
+				<param name="namespace">/port</param>
+			</result>
+			<result name="input">/WEB-INF/pages/port/addPort.jsp</result>
+		</action>
+		<!-- 修改 -->
+		<action name="EditPort" class="portAction" method="editPort">
+			<result name="success">/WEB-INF/pages/port/addPort.jsp</result>
+		</action>
+		<!-- 更新 -->
+		<action name="UpdatePort" class="portAction" method="savePort">
+			<result name="success" type="chain">
+				<param name="actionName">PortList</param>
+				<param name="namespace">/port</param>
+			</result>
+			<result name="input">/WEB-INF/pages/port/addPort.jsp</result>
+		</action>
+		<!-- 删除 -->
+		<action name="DeletePort" class="portAction" method="deletePort">
+			<result name="success" type="chain">
+				<param name="actionName">PortList</param>
+				<param name="namespace">/port</param>
+			</result>
+			<result name="input" type="chain">
+				<param name="actionName">PortList</param>
+				<param name="namespace">/port</param>
+			</result>
+		</action>
+		<!-- 查看 -->
+		<action name="ViewPort" class="portAction" method="viewPort">
+			<result name="success">/WEB-INF/pages/port/addPort.jsp</result>
+		</action>
+		
+	</package>
+</struts>

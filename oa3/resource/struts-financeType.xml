@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN" "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<!-- 支出类型 -->
+	<package name="financeType" extends="default" namespace="/financeType">
+		<!-- 支出类型列表 -->
+		<action name="FinanceTypeList" class="financeTypeAction" method="getList">
+			<result name="success">/WEB-INF/pages/financeType/financeTypeList.jsp</result>
+			<param name="query.CType">2</param>
+		</action>
+		<!-- 收入类型列表 -->
+		<action name="FinanceTypeInList" class="financeTypeAction" method="getList">
+			<result name="success">/WEB-INF/pages/financeType/financeTypeList.jsp</result>
+			<param name="query.CType">1</param>
+		</action>
+		
+		<!-- 支出添加 -->
+		<action name="AddFinanceType" class="financeTypeAction" method="addFinanceType">
+			<result name="success">/WEB-INF/pages/financeType/addFinanceType.jsp</result>
+			<param name="financeType.CType">2</param>
+		</action>
+		<!-- 收入添加 -->
+		<action name="AddFinanceInType" class="financeTypeAction" method="addFinanceType">
+			<result name="success">/WEB-INF/pages/financeType/addFinanceType.jsp</result>
+			<param name="financeType.CType">1</param>
+		</action>
+		
+		<!-- 支出保存 -->
+		<action name="SaveFinanceType" class="financeTypeAction" method="saveFinanceType">
+			<result name="success" type="chain">
+				<param name="actionName">FinanceTypeList</param>
+				<param name="namespace">/financeType</param>
+			</result>
+			<result name="input">/WEB-INF/pages/financeType/addFinanceType.jsp</result>
+		</action>
+		<!-- 收入保存 -->
+		<action name="SaveFinanceInType" class="financeTypeAction" method="saveFinanceType">
+			<result name="success" type="chain">
+				<param name="actionName">FinanceTypeInList</param>
+				<param name="namespace">/financeType</param>
+			</result>
+			<result name="input">/WEB-INF/pages/financeType/addFinanceType.jsp</result>
+		</action>
+		
+		<!-- 修改 -->
+		<action name="EditFinanceType" class="financeTypeAction" method="editFinanceType">
+			<result name="success">/WEB-INF/pages/financeType/editFinanceType.jsp</result>
+			<param name="financeType.CType">2</param>
+		</action>
+		<action name="EditFinanceInType" class="financeTypeAction" method="editFinanceType">
+			<result name="success">/WEB-INF/pages/financeType/editFinanceType.jsp</result>
+			<param name="financeType.CType">1</param>
+		</action>
+		
+		<!-- 支出更新 -->
+		<action name="UpdateFinanceType" class="financeTypeAction" method="saveFinanceType">
+			<result name="success" type="chain">
+				<param name="actionName">FinanceTypeList</param>
+				<param name="namespace">/financeType</param>
+			</result>
+			<result name="input">/WEB-INF/pages/financeType/editFinanceType.jsp</result>
+		</action>
+		<!-- 收入更新 -->
+		<action name="UpdateFinanceInType" class="financeTypeAction" method="saveFinanceType">
+			<result name="success" type="chain">
+				<param name="actionName">FinanceTypeInList</param>
+				<param name="namespace">/financeType</param>
+			</result>
+			<result name="input">/WEB-INF/pages/financeType/editFinanceType.jsp</result>
+		</action>
+		
+		<!-- 查看 -->
+		<action name="ViewFinanceType" class="financeTypeAction" method="editFinanceType">
+			<result name="success">/WEB-INF/pages/financeType/viewFinanceType.jsp</result>
+			<param name="financeType.CType">2</param>
+		</action>
+		<action name="ViewFinanceInType" class="financeTypeAction" method="editFinanceType">
+			<result name="success">/WEB-INF/pages/financeType/viewFinanceType.jsp</result>
+			<param name="financeType.CType">1</param>
+		</action>
+		
+		<!-- 支出删除 -->
+		<action name="DeleteFinanceType" class="financeTypeAction" method="deleteFinanceType">
+			<result name="success" type="chain">
+				<param name="actionName">FinanceTypeList</param>
+				<param name="namespace">/financeType</param>
+			</result>
+			<result name="input" type="chain">
+				<param name="actionName">FinanceTypeList</param>
+				<param name="namespace">/financeType</param>
+			</result>
+		</action>
+		<!-- 收入删除 -->
+		<action name="DeleteFinanceInType" class="financeTypeAction" method="deleteFinanceType">
+			<result name="success" type="chain">
+				<param name="actionName">FinanceTypeInList</param>
+				<param name="namespace">/financeType</param>
+			</result>
+			<result name="input" type="chain">
+				<param name="actionName">FinanceTypeInList</param>
+				<param name="namespace">/financeType</param>
+			</result>
+		</action>
+	</package>
+</struts>

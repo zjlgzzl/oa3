@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN" "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<!-- 部门管理 -->
+	<package name="bank" extends="default" namespace="/bank">
+		<!-- 列表 -->
+	 	<action name="BankList" class="bankAction" method="getList">
+			<result name="success">/WEB-INF/pages/bank/bankList.jsp</result>
+		</action>
+		<!-- 添加 -->
+		<action name="AddBank" class="bankAction" method="addBank">
+			<result name="success">/WEB-INF/pages/bank/addBank.jsp</result>
+		</action>
+		<!-- 保存 -->
+		<action name="SaveBank" class="bankAction" method="saveBank">
+			<result name="success" type="redirectAction">
+				<param name="actionName">BankList</param>
+				<param name="namespace">/bank</param>
+			</result>
+			<result name="input">/WEB-INF/pages/bank/addBank.jsp</result>
+		</action>
+		<!-- 修改 -->
+		<action name="EditBank" class="bankAction" method="editBank">
+			<result name="success">/WEB-INF/pages/bank/editBank.jsp</result>
+		</action>
+		<!-- 更新 -->
+		<action name="UpdateBank" class="bankAction" method="saveBank">
+			<result name="success" type="redirectAction">
+				<param name="actionName">BankList</param>
+				<param name="namespace">/bank</param>
+			</result>
+			<result name="input">/WEB-INF/pages/bank/editBank.jsp</result>
+		</action>
+		<!-- 删除 -->
+		<action name="DeleteBank" class="bankAction" method="deleteBank">
+			<result name="success" type="redirectAction">
+				<param name="actionName">BankList</param>
+				<param name="namespace">/bank</param>
+			</result>
+			<result name="input" type="chain">
+				<param name="actionName">BankList</param>
+				<param name="namespace">/bank</param>
+			</result>
+		</action>
+		<!-- 查看 -->
+		<action name="ViewBank" class="bankAction" method="editBank">
+			<result name="success">/WEB-INF/pages/bank/viewBank.jsp</result>
+		</action>
+	</package>
+</struts>

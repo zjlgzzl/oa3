@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN" "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+
+	<!-- struts的action对象由spring管理 -->
+	<constant name="struts.objectFactory" value="spring" />
+	
+	<package name="default" extends="struts-default" namespace="/">
+	
+		<!-- 用户校验拦截器 -->
+		<interceptors>
+			 <!-- 拦截器 -->
+ 	         <interceptor name="UserValidInterceptor" class="com.common.interceptor.UserValidInterceptor" />
+ 	         <!-- 拦截器栈 -->
+ 	         <interceptor-stack name="UserValidStack">
+ 				<interceptor-ref name="UserValidInterceptor" />
+ 				<interceptor-ref name="defaultStack" />
+ 	         </interceptor-stack>
+ 		</interceptors>
+ 		
+ 		<!-- 所有action都有效 -->
+		<default-interceptor-ref name="UserValidStack"></default-interceptor-ref>
+
+		<!-- 默认action -->
+		<default-action-ref name="defaultAction"></default-action-ref>
+		
+		<!-- 全局Result -->
+		<global-results>
+			<result name="login" type="redirect">/index.jsp</result>
+			<result name="error" type="redirect">/error.jsp</result> 
+			<result name="auth" type="redirect">/auth.jsp</result>
+		</global-results>
+		
+		<!-- 默认action -->
+		<action name="defaultAction">
+			<result>/default.jsp</result>
+		</action>
+		
+		<!-- 用户登陆 -->
+		<action name="LoginAction" class="loginAction" method="login">
+			<result name="success">/WEB-INF/pages/home/home.jsp</result>
+			<result name="login">index.jsp</result>
+			<interceptor-ref name="defaultStack"/>
+		</action>
+		
+		<!-- 退出系统 -->
+		<action name="ExitAction" class="loginAction" method="exit">
+			<result name="success">/index.jsp</result>
+		</action>
+		
+		<!-- 跳转至修改密码页面 -->
+		<action name="ForwardPwd" class="loginAction" method="forwardPwd">
+			<result name="success">/WEB-INF/pages/home/changePwd.jsp</result>
+		</action>
+		
+		<!-- 修改密码-->
+		<action name="ChangePwd" class="loginAction" method="changePwd">
+			<result name="success" type="redirectAction">
+				<param name="actionName">ExitAction</param>
+			</result>
+			<result name="input">/WEB-INF/pages/home/changePwd.jsp</result>
+		</action>
+	
+		<!-- 得到用户权限列表 -->
+		<action name="GetFuncTree" class="loginAction" method="getFuncTree" />
+	
+	</package>
+	
+	<!-- 通用处理 -->
+	<package name="util" extends="struts-default" namespace="/util">
+	 	<action name="*_*" class="com.common.util.{1}" method="{2}" />
+	</package>
+	
+	<!-- 引入其它struts文件 -->
+	<include file="struts-dept.xml"></include>
+	<include file="struts-emp.xml"></include>
+	<include file="struts-base.xml"></include>
+	<include file="struts-busin.xml"></include>
+	<include file="struts-finance.xml"></include>
+	<include file="struts-container.xml"></include>
+	<include file="struts-bank.xml"></include>
+	<include file="struts-report.xml"></include>
+	<include file="struts-financeType.xml"></include>
+	<include file="struts-rate.xml"></include>
+	<include file="struts-hscode.xml"></include>
+	<include file="struts-saler.xml"></include>
+	<include file="struts-agent.xml"></include>
+	<include file="struts-port.xml"></include>
+	<include file="struts-shipment.xml"></include>
+	<include file="struts-shippingLine.xml"></include>
+	<include file="struts-type.xml"></include>
+</struts>

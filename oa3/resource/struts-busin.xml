@@ -1,0 +1,675 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN" "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<!-- 业务处理 -->
+	<package name="busin" extends="default" namespace="/busin">
+
+		<!-- 服务单/服务单归档 -->
+	 	<action name="BusinList" class="businAction" method="getList">
+			<result name="success">/WEB-INF/pages/busin/businList.jsp</result>
+			<param name="listFlag">1</param>
+		</action>
+		<!-- 开票/开票归档 -->
+		<action name="FinanceCashList" class="businAction" method="getList">
+			<result name="success">/WEB-INF/pages/busin/businList.jsp</result>
+			<param name="listFlag">6</param>
+		</action>
+		
+		<!-- 服务单/服务单归档 详情页 -->
+	 	<action name="BusinDetialList" class="businAction" method="getList">
+			<result name="success">/WEB-INF/pages/busin/businDetailList.jsp</result>
+			<param name="listFlag">1</param>
+		</action>
+		
+		
+		<!-- 单据归档
+		<action name="BusinArchivingList" class="businAction" method="getList">
+			<result name="success">/WEB-INF/pages/busin/businList.jsp</result>
+			<param name="listFlag">10</param>
+		</action>
+		-->
+		<!-- 已回款列表 
+		<action name="FinanceCashList2" class="businAction" method="getList">
+			<result name="success">/WEB-INF/pages/busin/businList.jsp</result>
+			<param name="listFlag">6</param>
+			<param name="query.recieveFlag">1</param>
+		</action>
+		-->
+		
+		<!-- 业务单客户预览 -->
+		<action name="BusinCusReport" class="businAction" method="getBusinCusReport">
+			<result name="success">/WEB-INF/pages/busin/businCusReport.jsp</result>
+		</action>
+		
+		<!-- 更新已回款标记 -->
+		<action name="UpdateRecieveFlag" class="businAction" method="updateRecieveFlag">
+			<result name="success" type="chain">
+				<param name="actionName">BusinDetialList</param>
+				<param name="namespace">/busin</param>
+				<param name="_businId">${_businId}</param>
+			</result>
+			<result name="input" type="chain">
+				<param name="actionName">BusinDetialList</param>
+				<param name="namespace">/busin</param>
+				<param name="_businId">${_businId}</param>
+			</result>
+		</action>
+		<action name="UpdateRecieveFlag2" class="businAction" method="updateRecieveFlag2">
+			<result name="success" type="chain">
+				<param name="actionName">FinanceCashList2</param>
+				<param name="namespace">/busin</param>
+			</result>
+			<result name="input" type="chain">
+				<param name="actionName">FinanceCashList2</param>
+				<param name="namespace">/busin</param>
+			</result>
+		</action>
+		
+		
+		<!-- 导出 -->
+		<action name="ExpBusinList" class="businAction" method="expBusinList">
+			<result name="success" type="stream">                   
+				<param name="contentType">application/vnd.ms-excel</param>                   
+				<param name="inputName">excelStream</param>                 
+				<param  name="contentDisposition">attachment;filename="${fileName}.xls"</param>                
+				<param name="bufferSize">1024</param>
+			</result>
+		</action>
+		
+		<!-- 添加 -->
+		<action name="AddBusin" class="businAction" method="addBusin">
+			<result name="success">/WEB-INF/pages/busin/addBusin.jsp</result>
+		</action>
+		
+		<!-- 添加 -->
+		<action name="CopyBusin" class="businAction" method="copyBusin">
+			<result name="success">/WEB-INF/pages/busin/addBusin.jsp</result>
+		</action>
+		
+		<!-- 保存 -->
+		<action name="SaveBusin" class="businAction" method="saveBusin">
+			<result name="success" type="chain">
+				<param name="actionName">BusinList</param>
+				<param name="namespace">/busin</param>
+			</result>
+			<result name="input">/WEB-INF/pages/busin/addBusin.jsp</result>
+		</action>
+		
+		<!-- 修改 -->
+		<action name="EditBusin" class="businAction" method="editBusin">
+			<result name="success">/WEB-INF/pages/busin/editBusin.jsp</result>
+		</action>
+		
+		<!-- 更新 -->
+		<action name="UpdateBusin" class="businAction" method="saveBusin">
+			<result name="success" type="chain">
+				<param name="actionName">BusinDetialList</param>
+				<param name="namespace">/busin</param>
+				<param name="_businId">${_businId}</param>
+			</result>
+			<result name="input">/WEB-INF/pages/busin/editBusin.jsp</result>
+		</action>
+		
+		<!-- 删除 -->
+		<action name="DeleteBusin" class="businAction" method="deleteBusin">
+			<result name="success" type="chain">
+				<param name="actionName">BusinList</param>
+				<param name="namespace">/busin</param>
+			</result>
+			<result name="input" type="chain">
+				<param name="actionName">BusinList</param>
+				<param name="namespace">/busin</param>
+			</result>
+		</action>
+		
+		<!-- 查看 -->
+		<action name="ViewBusin" class="businAction" method="viewBusin">
+			<result name="success">/WEB-INF/pages/busin/viewBusin.jsp</result>
+		</action>
+		
+		<!-- 置顶 
+		<action name="SetOrder" class="businAction" method="setOrder">
+			<result name="success" type="chain">
+				<param name="actionName">FinanceCashList</param>
+				<param name="namespace">/busin</param>
+			</result>
+		</action>
+		<action name="SetOrder2" class="businAction" method="setOrder">
+			<result name="success" type="chain">
+				<param name="actionName">FinanceCashList2</param>
+				<param name="namespace">/busin</param>
+			</result>
+		</action>
+		-->
+		
+		<!-- 打印领款单 -->
+		<action name="PrintCost" class="businAction" method="printCost">
+			<result name="success">/WEB-INF/pages/busin/printCost.jsp</result>
+			<result name="input" type="chain">
+				<param name="actionName">BusinDetialList</param>
+				<param name="namespace">/busin</param>
+				<param name="_businId">${_businId}</param>
+			</result>
+		</action>
+		<action name="PrintCost2" class="businAction" method="printCost2">
+			<result name="success">/WEB-INF/pages/busin/printCost2.jsp</result>
+			<result name="input" type="chain">
+				<param name="actionName">BusinDetialList</param>
+				<param name="namespace">/busin</param>
+				<param name="_businId">${_businId}</param>
+			</result>
+		</action>
+		
+		<!-- 确认领款 -->
+		<action name="ConfirmCost" class="businAction" method="confirmCost">
+			<result name="success" type="chain">
+				<param name="actionName">FinanceCostList</param>
+				<param name="namespace">/busin</param>
+			</result>
+		</action>
+		
+		<!-- 财务回款页面 -->
+		<action name="FinanceCash" class="businAction" method="financeCash">
+			<result name="success">/WEB-INF/pages/busin/financeCash.jsp</result>
+		</action>
+		
+		<!-- 打印回款单 -->
+		<action name="PrintInvoice" class="businAction" method="printInvoice">
+			<result name="success">/WEB-INF/pages/busin/printInvoice.jsp</result>
+		</action>
+		<action name="PrintInvoiceRate" class="businAction" method="printInvoiceRate">
+			<result name="success">/WEB-INF/pages/busin/printInvoiceRate.jsp</result>
+		</action>
+		<!-- 打印回款单2 -->
+		<action name="PrintInvoice2" class="businAction" method="printInvoice2">
+			<result name="success">/WEB-INF/pages/busin/printInvoice.jsp</result>
+		</action>
+		<action name="PrintInvoiceRate2" class="businAction" method="printInvoiceRate2">
+			<result name="success">/WEB-INF/pages/busin/printInvoiceRate.jsp</result>
+		</action>
+		
+		<!-- 打印回款单结余 按不含税格式2打印20180116-->
+		<action name="PrintInvoiceDue" class="businAction" method="printInvoice">
+			<result name="success">/WEB-INF/pages/busin/printInvoiceDue.jsp</result>
+		</action>
+		<action name="PrintInvoiceRateDue" class="businAction" method="printInvoiceRate">
+			<result name="success">/WEB-INF/pages/busin/printInvoiceRateDue.jsp</result>
+		</action>
+		<!-- 打印回款单结余2 -->
+		<action name="PrintInvoiceDue2" class="businAction" method="printInvoice2">
+			<result name="success">/WEB-INF/pages/busin/printInvoiceDue2.jsp</result>
+		</action>
+		<action name="PrintInvoiceRateDue2" class="businAction" method="printInvoiceRate2">
+			<result name="success">/WEB-INF/pages/busin/printInvoiceRateDue2.jsp</result>
+		</action>
+		
+		<!-- 确认回款 -->
+		<action name="ConfirmCash" class="businAction" method="confirmCash">
+			<result name="success" type="chain">
+				<param name="actionName">FinanceCashList</param>
+				<param name="namespace">/busin</param>
+			</result>
+		</action>
+		
+		<!-- 回款登记页面 -->
+		<action name="EditCashBusin" class="businAction" method="editCashBusin">
+			<result name="success">/WEB-INF/pages/busin/editCashBusin.jsp</result>
+		</action>
+		<action name="SaveCashBusin" class="businAction" method="saveCashBusin">
+			<result name="success" type="chain">
+				<param name="actionName">BusinDetialList</param>
+				<param name="namespace">/busin</param>
+				<param name="_businId">${_businId}</param>
+			</result>
+		</action>
+		<action name="SaveCashBusinAndPrint1" class="businAction" method="saveCashBusin">
+			<result name="success" type="chain">
+				<param name="actionName">PrintInvoiceDue</param>
+				<param name="namespace">/busin</param>
+				<param name="_businId">${_businId}</param>
+				<param name="businId">${businId}</param>
+			</result>
+		</action>
+		<action name="SaveCashBusinAndPrint2" class="businAction" method="saveCashBusin">
+			<result name="success" type="chain">
+				<param name="actionName">PrintInvoiceDue2</param>
+				<param name="namespace">/busin</param>
+				<param name="_businId">${_businId}</param>
+				<param name="businId">${businId}</param>
+			</result>
+		</action>
+		<action name="SaveCashBusinAndPrint3" class="businAction" method="saveCashBusin">
+			<result name="success" type="chain">
+				<param name="actionName">PrintInvoiceRateDue2</param>
+				<param name="namespace">/busin</param>
+				<param name="_businId">${_businId}</param>
+				<param name="businId">${businId}</param>
+			</result>
+		</action>
+		
+		
+		<action name="CommitCashBusin" class="businAction" method="commitCashBusin">
+			<result name="success" type="chain">
+				<param name="actionName">BusinCashList</param>
+				<param name="namespace">/busin</param>
+			</result>
+		</action>
+		
+		<!-- 归档 -->
+		<action name="BusinClose" class="businAction" method="businClose">
+			<result name="success" type="chain">
+				<param name="actionName">BusinDetialList</param>
+				<param name="namespace">/busin</param>
+				<param name="_businId">${_businId}</param>
+			</result>
+		</action>
+		<!-- 解除归档 -->
+		<action name="BusinOpen" class="businAction" method="businOpen">
+			<result name="success" type="chain">
+				<param name="actionName">BusinDetialList</param>
+				<param name="namespace">/busin</param>
+				<param name="_businId">${_businId}</param>
+			</result>
+		</action>
+		
+		<action name="BusinClose2" class="businAction" method="businClose">
+			<result name="success" type="chain">
+				<param name="actionName">FinanceCashList</param>
+				<param name="namespace">/busin</param>
+			</result>
+		</action>
+		
+		
+		
+		<action name="BusinLock" class="businAction" method="businLock">
+			<result name="success" type="chain">
+				<param name="actionName">BusinList</param>
+				<param name="namespace">/busin</param>
+				<param name="listFlag">6</param>
+			</result>
+		</action>
+		<action name="BusinLock2" class="businAction" method="businLock">
+			<result name="success" type="chain">
+				<param name="actionName">FinanceCashList2</param>
+				<param name="namespace">/busin</param>
+				<param name="listFlag">6</param>
+			</result>
+		</action>
+		<action name="BusinLock3" class="businAction" method="businLock">
+			<result name="success" type="chain">
+				<param name="actionName">FinanceCashList</param>
+				<param name="namespace">/busin</param>
+				<param name="listFlag">6</param>
+			</result>
+		</action>
+		<action name="BusinUnlock" class="businAction" method="businUnlock">
+			<result name="success" type="chain">
+				<param name="actionName">BusinList</param>
+				<param name="namespace">/busin</param>
+				<param name="listFlag">6</param>
+			</result>
+		</action>
+		<action name="BusinUnlock2" class="businAction" method="businUnlock">
+			<result name="success" type="chain">
+				<param name="actionName">FinanceCashList2</param>
+				<param name="namespace">/busin</param>
+				<param name="listFlag">6</param>
+			</result>
+		</action>
+		<action name="BusinUnlock3" class="businAction" method="businUnlock">
+			<result name="success" type="chain">
+				<param name="actionName">FinanceCashList</param>
+				<param name="namespace">/busin</param>
+				<param name="listFlag">6</param>
+			</result>
+		</action>
+		
+		<!-- 查看服务单锁定 -->
+		<action name="ViewBusinLock" class="businAction" method="businLock">
+			<result name="success" type="chain">
+				<param name="actionName">FinanceCashList</param>
+				<param name="namespace">/busin</param>
+				<param name="listFlag">6</param>
+				<param name="query.recieveFlag">0</param>
+			</result>
+		</action>
+		
+		<action name="ViewBusinLock2" class="businAction" method="businLock">
+			<result name="success" type="chain">
+				<param name="actionName">FinanceCashList2</param>
+				<param name="namespace">/busin</param>
+				<param name="listFlag">6</param>
+				<param name="query.recieveFlag">1</param>
+			</result>
+		</action>
+		
+		<action name="SetHidden" class="businAction" method="setHidden">
+			<result name="success" type="chain">
+				<param name="actionName">CostReport</param>
+				<param name="namespace">/report</param>
+				<param name="pageNow">${pageNow}</param>
+			</result>
+		</action>
+		<action name="SetHidden2" class="businAction" method="setHidden">
+			<result name="success" type="chain">
+				<param name="actionName">CostReport2</param>
+				<param name="namespace">/report</param>
+				<param name="pageNow">${pageNow}</param>
+			</result>
+		</action>
+		<action name="SetHiddenBatch" class="businAction" method="setHiddenBatch">
+			<result name="success" type="chain">
+				<param name="actionName">CostReport</param>
+				<param name="namespace">/report</param>
+				<param name="pageNow">${pageNow}</param>
+			</result>
+		</action>
+		
+		<action name="SetNewCostFlag" class="businAction" method="setNewCostFlag">
+			<result name="success" type="chain">
+				<param name="actionName">CostReport</param>
+				<param name="namespace">/report</param>
+				<param name="pageNow">${pageNow}</param>
+			</result>
+		</action>
+		<action name="Pickup" class="businAction" method="pickup">
+		</action>
+		<action name="SetNewCostFlag22" class="businAction" method="setNewCostFlag">
+			<result name="success" type="chain">
+				<param name="actionName">CostReport2</param>
+				<param name="namespace">/report</param>
+				<param name="pageNow">${pageNow}</param>
+			</result>
+		</action>
+		<action name="SetNewCostFlagBatch" class="businAction" method="setNewCostFlagBatch">
+			<result name="success" type="chain">
+				<param name="actionName">CostReport</param>
+				<param name="namespace">/report</param>
+				<param name="pageNow">${pageNow}</param>
+			</result>
+		</action>
+		
+		<action name="SetBaoxiao" class="businAction" method="setBaoxiao">
+			<result name="success" type="chain">
+				<param name="actionName">CostReport2</param>
+				<param name="namespace">/report</param>
+				<param name="pageNow">${pageNow}</param>
+			</result>
+		</action>
+		<action name="SetBaoxiaoBatch" class="businAction" method="setBaoxiaoBatch">
+			<result name="success" type="chain">
+				<param name="actionName">CostReport2</param>
+				<param name="namespace">/report</param>
+				<param name="pageNow">${pageNow}</param>
+			</result>
+		</action>
+		
+		<action name="SetNewCostFlag2" class="businAction" method="setNewCostFlag2">
+			<result name="success" type="chain">
+				<param name="actionName">FinanceCashList2</param>
+				<param name="namespace">/busin</param>
+				<param name="listFlag">${listFlag}</param>
+				<param name="query.recieveFlag">1</param>
+			</result>
+		</action>
+		
+		<action name="SetCostDupFlag1" class="businAction" method="setCostDupFlag">
+			<result name="success" type="chain">
+				<param name="actionName">BusinList</param>
+				<param name="namespace">/busin</param>
+				<param name="listFlag">1</param>
+			</result>
+		</action>
+		<action name="SetCostDupFlag2" class="businAction" method="setCostDupFlag">
+			<result name="success" type="chain">
+				<param name="actionName">BusinArchivingList</param>
+				<param name="namespace">/busin</param>
+				<param name="listFlag">10</param>
+			</result>
+		</action>
+		<action name="SetCostDupFlag3" class="businAction" method="setCostDupFlag">
+			<result name="success" type="chain">
+				<param name="actionName">FinanceCashList</param>
+				<param name="namespace">/busin</param>
+				<param name="listFlag">6</param>
+				<param name="query.recieveFlag">0</param>
+			</result>
+		</action>
+		<action name="SetCostDupFlag4" class="businAction" method="setCostDupFlag">
+			<result name="success" type="chain">
+				<param name="actionName">FinanceCashList2</param>
+				<param name="namespace">/busin</param>
+				<param name="listFlag">6</param>
+				<param name="query.recieveFlag">1</param>
+			</result>
+		</action>
+		
+		<action name="UpdatePrintState" class="businAction" method="updatePrintState"></action>
+		
+		<!-- 打印服务单 -->
+		<action name="PrintBusinFile" class="businAction" method="printBusinFile">
+			<result name="success">/WEB-INF/pages/busin/printBusinFile.jsp</result>
+		</action>
+		
+		<!-- 服务单锁定页面 -->
+		<action name="UnlockList" class="businAction" method="unlockList">
+			<result name="success">/WEB-INF/pages/busin/unLockList.jsp</result>
+		</action>
+		
+		<!-- 检查服务单是否锁定 -->
+		<action name="CheckLock" class="businAction" method="checkLock"></action>
+		
+		<!-- 修改服务单点击返回时更新锁定标记 -->
+		<action name="UpdateLockFlag" class="businAction" method="updateLockFlag"></action>
+		
+		<!-- 解除锁定页面解除锁定 -->
+		<action name="UnLockBusin" class="businAction" method="unLockBusin">
+			<result name="success" type="chain">
+				<param name="actionName">UnlockList</param>
+				<param name="namespace">/busin</param>
+			</result>
+		</action>
+		
+		<action name="UpdateArchiveRemarks" class="businAction" method="updateArchiveRemarks"></action>
+		<action name="UpdateFileRemarks" class="businAction" method="updateFileRemarks"></action>
+		<action name="UpdateRecieveRemarks" class="businAction" method="updateRecieveRemarks"></action>
+		<action name="UpdateKaipiaoRemarks" class="businAction" method="updateKaipiaoRemarks"></action>
+		
+		<action name="BusinComplete" class="businAction" method="businComplete">
+			<result name="success" type="chain">
+				<param name="actionName">BusinDetialList</param>
+				<param name="namespace">/busin</param>
+				<param name="_businId">${_businId}</param>
+			</result>
+		</action>
+		
+		<action name="UpdateCusFlag" class="businAction" method="updateCusFlag">
+			<result name="success" type="chain">
+				<param name="actionName">BusinCusReport</param>
+				<param name="namespace">/busin</param>
+			</result>
+		</action>
+		
+		
+		<action name="UpdateLock" class="businAction" method="updateLock">
+			<result name="success1" type="chain">
+				<param name="actionName">FinanceCashList</param>
+				<param name="namespace">/busin</param>
+				<param name="listFlag">6</param>
+				<param name="query.recieveFlag">0</param>
+			</result>
+			<result name="success2" type="chain">
+				<param name="actionName">FinanceCashList2</param>
+				<param name="namespace">/busin</param>
+				<param name="listFlag">6</param>
+				<param name="query.recieveFlag">1</param>
+			</result>
+		</action>
+		
+		
+		
+		<!-- 回款组 -->
+		<action name="FinanceGroupList" class="businAction" method="getFinanceGroupList">
+			<result name="success">/WEB-INF/pages/financeGroup/financeGroupList.jsp</result>
+		</action>
+		<!-- 添加 -->
+		<action name="AddFinanceGroup" class="businAction" method="addFinanceGroup">
+			<result name="success">/WEB-INF/pages/financeGroup/addFinanceGroup.jsp</result>
+		</action>
+		<!-- 保存 -->
+		<action name="SaveFinanceGroup" class="businAction" method="saveFinanceGroup">
+			<result name="success" type="chain">
+				<param name="actionName">FinanceGroupList</param>
+				<param name="namespace">/busin</param>
+			</result>
+			<result name="input">/WEB-INF/pages/financeGroup/addFinanceGroup.jsp</result>
+		</action>
+		<!-- 修改 -->
+		<action name="EditFinanceGroup" class="businAction" method="editFinanceGroup">
+			<result name="success">/WEB-INF/pages/financeGroup/editFinanceGroup.jsp</result>
+		</action>
+		<!-- 更新 -->
+		<action name="UpdateFinanceGroup" class="businAction" method="saveFinanceGroup">
+			<result name="success" type="chain">
+				<param name="actionName">FinanceGroupList</param>
+				<param name="namespace">/busin</param>
+			</result>
+			<result name="input">/WEB-INF/pages/financeGroup/editFinanceGroup.jsp</result>
+		</action>
+		<!-- 删除 -->
+		<action name="DeleteFinanceGroup" class="businAction" method="deleteFinanceGroup">
+			<result name="success" type="chain">
+				<param name="actionName">FinanceGroupList</param>
+				<param name="namespace">/busin</param>
+			</result>
+			<result name="input" type="chain">
+				<param name="actionName">FinanceGroupList</param>
+				<param name="namespace">/busin</param>
+			</result>
+		</action>
+		<!-- 查看 -->
+		<action name="ViewFinanceGroup" class="businAction" method="editFinanceGroup">
+			<result name="success">/WEB-INF/pages/financeGroup/viewFinanceGroup.jsp</result>
+		</action>
+		<action name="GetGroupItemsByGroupId" class="businAction" method="getGroupItemsByGroupId"></action>
+		
+		
+		<!-- 成本组 -->
+		<action name="CostGroupList" class="businAction" method="getCostGroupList">
+			<result name="success">/WEB-INF/pages/costGroup/costGroupList.jsp</result>
+		</action>
+		<!-- 添加 -->
+		<action name="AddCostGroup" class="businAction" method="addCostGroup">
+			<result name="success">/WEB-INF/pages/costGroup/addCostGroup.jsp</result>
+		</action>
+		<!-- 保存 -->
+		<action name="SaveCostGroup" class="businAction" method="saveCostGroup">
+			<result name="success" type="chain">
+				<param name="actionName">CostGroupList</param>
+				<param name="namespace">/busin</param>
+			</result>
+			<result name="input">/WEB-INF/pages/costGroup/addCostGroup.jsp</result>
+		</action>
+		<!-- 修改 -->
+		<action name="EditCostGroup" class="businAction" method="editCostGroup">
+			<result name="success">/WEB-INF/pages/costGroup/editCostGroup.jsp</result>
+		</action>
+		<!-- 更新 -->
+		<action name="UpdateCostGroup" class="businAction" method="saveCostGroup">
+			<result name="success" type="chain">
+				<param name="actionName">CostGroupList</param>
+				<param name="namespace">/busin</param>
+			</result>
+			<result name="input">/WEB-INF/pages/costGroup/editCostGroup.jsp</result>
+		</action>
+		<!-- 删除 -->
+		<action name="DeleteCostGroup" class="businAction" method="deleteCostGroup">
+			<result name="success" type="chain">
+				<param name="actionName">CostGroupList</param>
+				<param name="namespace">/busin</param>
+			</result>
+			<result name="input" type="chain">
+				<param name="actionName">CostGroupList</param>
+				<param name="namespace">/busin</param>
+			</result>
+		</action>
+		<!-- 查看 -->
+		<action name="ViewCostGroup" class="businAction" method="editCostGroup">
+			<result name="success">/WEB-INF/pages/costGroup/viewCostGroup.jsp</result>
+		</action>
+		<action name="GetCostGroupItemsByGroupId" class="businAction" method="getCostGroupItemsByGroupId"></action>
+		
+		
+		<action name="InvByEmpReport" class="businAction" method="getInvByEmpReport">
+			<result name="success">/WEB-INF/pages/busin/invByEmpList.jsp</result>
+		</action>
+		
+		<!-- 开票提醒 -->
+		<action name="InvNoticeReport" class="businAction" method="getInvNoticeReport">
+			<result name="success">/WEB-INF/pages/busin/invNoticeReport.jsp</result>
+		</action>
+		<action name="UpdateReply" class="businAction" method="updateReply"></action>
+		<action name="StopNotice" class="businAction" method="stopNotice">
+			<result name="success" type="chain">
+				<param name="actionName">InvNoticeReport</param>
+				<param name="namespace">/busin</param>
+			</result>
+			<result name="input" type="chain">
+				<param name="actionName">InvNoticeReport</param>
+				<param name="namespace">/busin</param>
+			</result>
+		</action>
+		
+		<!-- 问题提醒 -->
+		<action name="ProblemNoticeReport" class="businAction" method="getProblemNoticeReport">
+			<result name="success">/WEB-INF/pages/busin/problemNoticeReport.jsp</result>
+		</action>
+		<action name="UpdateAnswer" class="businAction" method="updateAnswer"></action>
+		<action name="StopProblemNotice" class="businAction" method="stopProblemNotice">
+			<result name="success" type="chain">
+				<param name="actionName">ProblemNoticeReport</param>
+				<param name="namespace">/busin</param>
+			</result>
+			<result name="input" type="chain">
+				<param name="actionName">ProblemNoticeReport</param>
+				<param name="namespace">/busin</param>
+			</result>
+		</action>
+		
+		
+		
+		<action name="BusinSumReport" class="businAction" method="getBusinSumReport">
+			<result name="success">/WEB-INF/pages/busin/businSumReport.jsp</result>
+		</action>
+		
+		<action name="UpdatePrintCost2Money" class="businAction" method="updatePrintCost2Money">
+		</action>
+		
+		<action name="UpdateCostGroupInfo" class="businAction" method="updateCostGroupInfo">
+		</action>
+		
+		<action name="CostGroupNoticeReport" class="businAction" method="getCostGroupNoticeReport">
+			<result name="success">/WEB-INF/pages/busin/costGroupNoticeReport.jsp</result>
+		</action>
+		<action name="BusinBiaoji" class="businAction" method="businBiaoji"></action>
+		<action name="CheckBjFlagBeforeEdit" class="businAction" method="checkBjFlagBeforeEdit"></action>
+		<action name="CancelBiaojiNotice" class="businAction" method="cancelBiaojiNotice">
+			<result name="success" type="chain">
+				<param name="actionName">CostGroupNoticeReport</param>
+				<param name="namespace">/busin</param>
+			</result>
+			<result name="input" type="chain">
+				<param name="actionName">CostGroupNoticeReport</param>
+				<param name="namespace">/busin</param>
+			</result>
+		</action>
+		
+		<action name="GetProfitByBusinId" class="businAction" method="getProfitByBusinId">
+		</action>
+		
+		<action name="HomePage" class="businAction" method="homePage">
+			<result name="success">/WEB-INF/pages/home/homePage.jsp</result>
+		</action>
+		
+	</package>
+</struts>
